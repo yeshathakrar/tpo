@@ -37,7 +37,7 @@ In order to speed up the development of a feature, we can generate the swagger f
 
 ## Endpoints
 
-# Health check
+### Health check
 
 1) Application healthcheck
 	

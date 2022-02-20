@@ -48,7 +48,7 @@ In order to speed up the development of a feature, we can generate the swagger f
 	Response example: 
 		`Service is up and running on 23-01-2022 12:22:13`
 	
-# Roles Component
+### Roles Component
 	
 1) Create roles
 
@@ -101,7 +101,7 @@ In order to speed up the development of a feature, we can generate the swagger f
 				]
 			}```
 			
-# User component
+### User component
 
 1) Create user
 
@@ -159,7 +159,7 @@ In order to speed up the development of a feature, we can generate the swagger f
 				}
 			}```
 		
-# Checkpoint or Door component
+### Checkpoint or Door component
 
 1) Create checkpoints
 
@@ -295,7 +295,7 @@ B) Leaving a door
 			
 
 		
-# Historical event component
+### Historical event component
 
 1) Get user historical events based on user id and date filters
 

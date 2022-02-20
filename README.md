@@ -2,9 +2,32 @@
 
 This is a Web API application to support an interface for users to access office premises and view their access history.
 
-## .NET Core version
+## Project key highlights
 
-The application is built in .NET Core 3.1
+### Monolithic architecture over micro services
+
+Considering the time constraints and ease of development, this application is currently built in monolithic architecture. However, going further it can be easily broken down to micro services as I have kept each component in a segregated manner which also fulfils the single responsibilty that each class file has.
+
+### .NET Core 3.1
+
+The application is written in .NET core 3.1 for the purpose of scalability and platform independent backend integration.
+
+### Entity Framework Core 3.1.8 and SQLite Core 3.1.8
+
+For the assignment purpose, the database is kept in the form of SQLite .db file which is portable, light weight and supports ORM such as Entity Framework operations and can also be used with CI/CD pipelines. For production environments, the SQLite data source can be replaced by SQL server or any other equivalent database without breaking the existing code base.
+
+### Custom authentication and authorization middleware
+
+The most important feature of the application is accessing doors with authorized tags. This business logic has been handled by creating custom authentication and authorization middlewares.
+With Authentication middleware, the tag is authenticated and user identity is mapped. Once authenticated, teh authorization middleware looks for assigned roles and proceses further only if the roles are allowed to do the requested operations. For example, only admins are allowed to create users.
+
+### Claim Identity
+
+Claims are used in authentication middlewares to identify a user which can then be accessed throughout the application for carrying out different operations. Hence, this application uses claims as an object to hold an authenticated user identity and further authorizations are done based upon this identity.
+
+### In-memory cache
+
+The application uses microsoft library in-memory cache, Microsoft.Extensions.Caching.Memory to store assigned roles once a tag is authenticated to avoid frequent database calls every time a user access any door. For scalability, the in-memory cache can be replaced by distributed cache or Redis.
 
 
 ## Project files
@@ -25,6 +48,12 @@ The application is built in .NET Core 3.1
 	
 	`dotnet test ./Clay.Api.Test/Clay.Api.Test.csproj`
 	
+## Database
+
+The root directory of the application holds a SQLite database file which can be opened and queries executed with LinqPad.
+
+	`./Clay.Api/Database/Clay.db`
+	
 
 ## Swagger documentation
 
@@ -34,6 +63,7 @@ Browse swagger document and schema from here.
 	`/swagger/index.html`
 
 In order to speed up the development of a feature, we can generate the swagger file first by finalyzing on our data models and discuss it with front end engineers and basically freeze the API contract. So that both the backend and front end engineers start developing their respective parts in parallel and deliver the feature faster without keeping front end devs wait for long. 
+
 
 ## Endpoints
 
@@ -359,11 +389,10 @@ API requests can be uniquely identified with the field "uniqueRefId" which is eq
 
 ## Go to production
 
-From DevOps point of view, this assignment may not be ready to go to production. There would be quite a few things that has to be done before going to production apart from connecting it with real data source (instead of having hardcoded data)
+From DevOps point of view, this assignment may not be ready to go to production. There would be quite a few things that has to be done before going to production apart from connecting it with real data source (instead of having SQLite database)
 
-1) CI/CD pipelines
-2) How to search for API logs
-3) What authorization technique should we use - JWT token, just plain signatures, etc
-4) Integrate the API with some APM tools
-5) Decide on service SLAs
-6) Performance, Scalability, should we use any caching strategies
+1) CI/CD pipelines.
+2) How to search for API logs.
+3) What other authorization technique should we use - JWT token, just plain signatures, etc.
+4) Integrate the APIs with some APM tools like AWS cloudwatch.
+5) Decide on service SLAs.
